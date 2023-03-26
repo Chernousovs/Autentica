@@ -23,23 +23,27 @@
             contentType: "application/json",
             success: function (result) {
 
-                var markers = L.markerClusterGroup();
+                if (result != null) {
+                    var markers = L.markerClusterGroup();
 
-                var marker = [];
-                marker[0] = L.marker([result[0].nCoordinate, result[0].eCoordinate]).addTo(map).bindPopup(result[0].name, { autoClose: false, closeOnClick: false });
-                marker[1] = L.marker([result[1].nCoordinate, result[1].eCoordinate]).addTo(map).bindPopup(result[1].name, { autoClose: false, closeOnClick: false });
-                marker[2] = L.marker([result[2].nCoordinate, result[2].eCoordinate]).addTo(map).bindPopup(result[2].name, { autoClose: false, closeOnClick: false });
-                marker[3] = L.marker([result[3].nCoordinate, result[3].eCoordinate]).addTo(map).bindPopup(result[3].name, { autoClose: false, closeOnClick: false });
+                    var marker = [];
+                    marker[0] = L.marker([result[0].nCoordinate, result[0].eCoordinate]).addTo(map).bindPopup(result[0].name, { autoClose: false, closeOnClick: false });
+                    marker[1] = L.marker([result[1].nCoordinate, result[1].eCoordinate]).addTo(map).bindPopup(result[1].name, { autoClose: false, closeOnClick: false });
+                    marker[2] = L.marker([result[2].nCoordinate, result[2].eCoordinate]).addTo(map).bindPopup(result[2].name, { autoClose: false, closeOnClick: false });
+                    marker[3] = L.marker([result[3].nCoordinate, result[3].eCoordinate]).addTo(map).bindPopup(result[3].name, { autoClose: false, closeOnClick: false });
 
-                marker.forEach(function (marker) {
-                    markers.addLayer(marker);
-                    map.addLayer(markers);
-                });
+                    marker.forEach(function (marker) {
+                        markers.addLayer(marker);
+                        map.addLayer(markers);
+                    });
 
-                marker.forEach(function (marker) {
-                    var popup = marker.getPopup();
-                    marker.bindPopup(popup.getContent()).openPopup();
-                });
+                    marker.forEach(function (marker) {
+                        var popup = marker.getPopup();
+                        marker.bindPopup(popup.getContent()).openPopup();
+                    });
+                } else {
+                    alert("Data is missing and needs to be found.");
+                }
             },
         });
     };

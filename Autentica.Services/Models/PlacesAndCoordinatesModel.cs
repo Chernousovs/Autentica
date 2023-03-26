@@ -1,4 +1,4 @@
-﻿namespace Autentica.Models
+﻿namespace Autentica.Services.Models
 {
     public class PlacesAndCoordinatesModel
     {

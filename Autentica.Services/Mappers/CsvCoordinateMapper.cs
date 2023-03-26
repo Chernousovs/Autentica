@@ -1,4 +1,4 @@
-﻿using Autentica.Models;
+﻿using Autentica.Services.Models;
 using AutoMapper;
 
 namespace Autentica.Mappers

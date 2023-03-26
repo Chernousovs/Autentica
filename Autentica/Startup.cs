@@ -1,4 +1,6 @@
 using Autentica.Mappers;
+using Autentica.Services.Interfaces;
+using Autentica.Services.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,13 +24,16 @@ namespace Autentica
         {
             services.AddControllersWithViews();
             // Auto Mapper Configurations
-             var mapperConfig = new MapperConfiguration(mc =>
-             {
-                 mc.AddProfile(new CsvCoordinateMapper());
-             });
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new CsvCoordinateMapper());
+            });
 
-             IMapper mapper = mapperConfig.CreateMapper();
-             services.AddSingleton(mapper);
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+            // Add service to the service container. Interface implementation
+            services.AddScoped<IMapDataService, MapDataService>();
+            services.AddScoped<ICsvDataReadService, CsvDataReadService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,7 +1,7 @@
 ﻿using CsvHelper.Configuration.Attributes;
 using System;
 
-namespace Autentica.Models
+namespace Autentica.Services.Models
 {
     public class CsvDataModel
     {
