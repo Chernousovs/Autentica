@@ -1,8 +1,48 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home assignment";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<div id="map" style="width: 800px; height: 600px;"></div>
+
+<script>
+
+    window.onload = (event) => {
+        getData();
+    };
+
+    const map = L.map('map').setView([56.977884, 24.127176], 7);
+
+		const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			maxZoom: 19,
+			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+		}).addTo(map);
+
+    function getData() {
+        $.ajax({
+            url: "map/getplaces",
+            contentType: "application/json",
+            success: function (result) {
+
+                var markers = L.markerClusterGroup();
+
+                var marker = [];
+                marker[0] = L.marker([result[0].nCoordinate, result[0].eCoordinate]).addTo(map).bindPopup(result[0].name, { autoClose: false, closeOnClick: false });
+                marker[1] = L.marker([result[1].nCoordinate, result[1].eCoordinate]).addTo(map).bindPopup(result[1].name, { autoClose: false, closeOnClick: false });
+                marker[2] = L.marker([result[2].nCoordinate, result[2].eCoordinate]).addTo(map).bindPopup(result[2].name, { autoClose: false, closeOnClick: false });
+                marker[3] = L.marker([result[3].nCoordinate, result[3].eCoordinate]).addTo(map).bindPopup(result[3].name, { autoClose: false, closeOnClick: false });
+
+                marker.forEach(function (marker) {
+                    markers.addLayer(marker);
+                    map.addLayer(markers);
+                });
+
+                marker.forEach(function (marker) {
+                    var popup = marker.getPopup();
+                    marker.bindPopup(popup.getContent()).openPopup();
+                });
+            },
+        });
+    };
+
+
+</script>
