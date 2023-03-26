@@ -13,7 +13,7 @@ namespace Autentica.Services.Services
     public class CsvDataReadService : ICsvDataReadService
     {
         private readonly IMapper _mapper;
-        private readonly string _dataFilePath = "..\\Autentica.Services\\Data\\AW_VIETU_CENTROIDI.CSV";
+        private const string DataFilePath = "..\\Autentica.Services\\Data\\AW_VIETU_CENTROIDI.CSV";
 
         public CsvDataReadService(IMapper mapper)
         {
@@ -22,7 +22,7 @@ namespace Autentica.Services.Services
 
         public List<PlacesAndCoordinatesModel> GetDataFromFile()
         {
-            var places = new List<CsvDataModel>();
+            List<CsvDataModel> places;
             var configuration = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 Delimiter = ";",
@@ -31,7 +31,7 @@ namespace Autentica.Services.Services
                 BadDataFound = null,
             };
             
-            using (var reader = new StreamReader(_dataFilePath))
+            using (var reader = new StreamReader(DataFilePath))
             using (var csv = new CsvReader(reader, configuration))
             {
                 places = csv.GetRecords<CsvDataModel>().ToList();                
